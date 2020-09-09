@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8"/>
+<title>Cadastro de Título</title>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+
+
+<script type="text/javascript">
+	function somar(){
+		var dizi = parseFloat(document.getElementById('dizimos').value, 10);
+		var ofert = parseFloat(document.getElementById('ofertas').value, 10);
+		var doacoes = parseFloat(document.getElementById('doacoes').value, 10);
+		var outros = parseFloat(document.getElementById('outros').value, 10);
+		document.getElementById('total').value = dizi + ofert + doacoes + outros; 
+		
+	}
+	
+
+</script>
+</head>
+<body>
+	<nav class="navbar navbar-light bg-light">
+	  <a class="navbar-brand">Navbar</a>
+		<form class="form-inline">
+		    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+		    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+	  	</form>
+	</nav>
+
+
+<div class="container">
+	<form class="form-horizontal" method="post" action="/titulos">
+	<div class="alert alert-success" th:if="${!#strings.isEmpty(mensagem)}">
+ 		<span th:text="${mensagem}"></span>
+	</div>
+	
+	  <div class="card">
+		  <div class="card-header">
+		    Arrecadação dos Cultos
+		  </div>
+		  <div class="form-group row">
+		    <label for="nomeDoCulto" class="col-sm-2 col-form-label">Nome do culto</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="nomeDoCulto" name="nomeDoCulto">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group row">
+		    <label for="data" class="col-sm-2 col-form-label">Data de Culto</label>
+		    <div class="col-sm-2">
+		      <input type="datetime" class="form-control" id="data" name="data">
+		    </div>
+		  </div>
+		  
+		<h3>Tipos de Entradas</h3>
+		  <div class="form-group row">
+		    <label for="dizimos" class="col-sm-2 col-form-label">Dizimos</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" id="dizimos" name="dizimos" onblur="somar()" value="0">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group row">
+		    <label for="ofertas" class="col-sm-2 col-form-label">Ofertas</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" id="ofertas" name="ofertas" onblur="somar()" value="0">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group row">
+		    <label for="doacoes" class="col-sm-2 col-form-label">Doações</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" id="doacoes" name="doacoes" onblur="somar()" value="0">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group row">
+		    <label for="outros" class="col-sm-2 col-form-label">Outros</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" id="outros" name="outros" onblur="somar()" value="0">
+		    </div>
+		  </div>
+		  
+		  <h4>Total Geral</h4>
+		  <div class="form-group row">
+		    <label for="total" class="col-sm-2 col-form-label">Total</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" id="total" name="total">
+		    </div>
+		  </div>
+		  
+		   <div class="form-group row" >
+		    <label for="status" class="col-sm-2 col-form-label">Status</label>
+		    <div class="col-sm-2">
+		     	<select class="form-control" name="status">
+		     		<option th:each="status : ${todosStatusTitulo}" th:value="${status}" th:text="${status.descricao}"></option>
+		     	</select>
+		    </div>
+		  </div>
+		  
+		  <div class="form-group row">
+		    <div class="col-sm-offset-2 col-sm-10">
+		      <button type="submit" class="btn btn-primary" >Salvar</button>
+		    </div>
+		  </div> 	
+		 </div>    
+	</form>
+	
+	<table>
+		<tr th:each = "titulo : ${titulos}">
+			<th th:text = "${titulo.codigo}"></th>
+			<th th:text = "${titulo.descricao}"></th>
+			<th th:text = "${titulo.dataVencimento}"></th>
+			<th th:text = "${titulo.valor}"></th>
+		</tr>
+	</table>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>

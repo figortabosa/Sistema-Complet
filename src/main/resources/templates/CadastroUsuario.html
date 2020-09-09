@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Cadastro de Usuario</title>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="/css/usuario.css"/>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark">
+	<a class="navbar-brand" href="#">
+		<img alt="" src=""/>
+	</a>
+</nav>
+<div class="container">
+
+	<form class="form-horizontal" action="/salvarusuarios" method="post" th:object="${usuarioEmEdicao}">
+	  <div class="alert alert-success" th:if="${!#strings.isEmpty(mensagem)}">
+	  <span th:text="${mensagem}"></span>
+	  	Usuário salvo com sucesso!
+	  </div>
+		<div class="card">
+		  <div class="card-header">
+		    Cadastro de Usuário
+		  </div>
+		  
+		  <div class="dados">
+		  	<div class="form-group row">
+		    <label for="id" class="col-sm-2 col-form-label">Id</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" id="id" name="id" th:field="*{id}" readonly="readonly">
+		    </div>
+		  </div>
+		  
+		  <div class="dados">
+		  	<div class="form-group row">
+		    <label for="nome" class="col-sm-2 col-form-label">Nome</label>
+		    <div class="col-sm-5">
+		      <input type="text" class="form-control" id="nome" name="nome" th:field="*{nome}">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group row">
+		    <label for="sobrenome" class="col-sm-2 col-form-label">Sobrenome</label>
+		    <div class="col-sm-5">
+		      <input type="text" class="form-control" id="sobrenome" name="sobrenome" th:field="*{sobrenome}">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group row">
+		    <label for="cpf" class="col-sm-2 col-form-label">Cpf</label>
+		    <div class="col-sm-5">
+		      <input type="text" class="form-control" id="cpf" name="cpf" th:field="*{cpf}">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group row">
+		  	<label for="email" class="col-sm-2 col-form-label">Email</label>
+		  	<div class="col-sm-5">
+		  		<input type="email" class="form-control" id="email" name="email" th:field="*{email}">
+		  	</div>
+		  </div>
+		  
+		  
+		  <div class="form-group row">
+		    <label for="login" class="col-sm-2 col-form-label">login</label>
+		    <div class="col-sm-5">
+		      <input type="text" class="form-control" id="login" name="login" th:field="*{login}">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group row">
+		    <label for="senha" class="col-sm-2 col-form-label">Senha</label>
+		    <div class="col-sm-5">
+		      <input type="password" class="form-control" id="senha" name="senha" th:field="*{senha}">
+		    </div>
+		  </div>
+		  
+		  		  
+		  <div class="form-group row">
+		    <div class="col-sm-offset-2 col-sm-10">
+		      <button type="submit" class="btn btn-primary">Salvar</button>
+		    </div>
+		  </div> 
+		  
+		  </div>
+		</div>
+	</form>	
+	<br/>
+	
+	<a href="/listausuarios">Usuarios Cadastrados</a>
+	<br/>
+	<br/>
+		<form action="pesquisarusuario" method="post">
+			<label>Pesquisar Usuario</label>
+			<div class="col-sm-5">
+		      <input type="text" class="form-control" id="usuariopesquisa" name="usuariopesquisa" value="Buscar">
+		      <button type="submit" class="btn btn-primary">Buscar</button>
+		    </div>
+			
+		</form>
+	
+	<br/>
+	<br/>
+	<table>
+		<tr th:each = "usuario : ${usuarios}">
+			<td th:text = "${usuario.id}"></td>
+			<td th:text = "${usuario.nome}"></td>
+			<td th:text = "${usuario.sobrenome}"></td>
+			<td th:text = "${usuario.email}"></td>
+			<td th:text = "${usuario.cpf}"></td>
+			<td><a th:href="@{/editarusuario/{idusuario}(idusuario=${usuario.id})}">Editar</a></td>
+			<td><a th:href="@{/removerusuario/{idusuario}(idusuario=${usuario.id})}">Excluir</a></td>
+		</tr>	
+	</table>
+</div>
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>
