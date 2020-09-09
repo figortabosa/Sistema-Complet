@@ -46,7 +46,7 @@ public class UsuarioController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/listausuarios")
 	public ModelAndView usuarios() {
-		ModelAndView andView = new ModelAndView("/CadastroUsuario");
+		ModelAndView andView = new ModelAndView("/UsuariosCadastrados");
 		Iterable<Usuario> UsuarioIt = usuarioRepository.findAll();
 		andView.addObject("usuarios", UsuarioIt);
 		andView.addObject("usuarioEmEdicao", new Usuario());
@@ -77,7 +77,7 @@ public class UsuarioController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/pesquisarusuario")
 	public ModelAndView pesquisar(@RequestParam("usuariopesquisa") String usuariopesquisa) {
-		ModelAndView modelAndView = new ModelAndView("CadastroUsuario");
+		ModelAndView modelAndView = new ModelAndView("UsuariosCadastrados");
 		modelAndView.addObject("usuarios", usuarioRepository.findUsuarioByName(usuariopesquisa));
 		modelAndView.addObject("usuarioEmEdicao", new Usuario());
 		return modelAndView;
