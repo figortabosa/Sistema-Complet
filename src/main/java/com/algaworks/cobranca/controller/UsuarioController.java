@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -80,6 +81,28 @@ public class UsuarioController {
 		ModelAndView modelAndView = new ModelAndView("UsuariosCadastrados");
 		modelAndView.addObject("usuarios", usuarioRepository.findUsuarioByName(usuariopesquisa));
 		modelAndView.addObject("usuarioEmEdicao", new Usuario());
+		return modelAndView;
+	}
+	
+	@GetMapping("/inserirtelefone/{idusuario}")
+	public ModelAndView inserirtelefone(@PathVariable("idusuario") Long idusuario) {
+		Optional<Usuario> usuario = usuarioRepository.findById(idusuario);
+		
+		ModelAndView modelAndView = new ModelAndView("/CadastroTelefone");
+		modelAndView.addObject("usuarioEmEdicao", usuario.get());
+		return modelAndView;
+		
+	}
+	
+	@PostMapping("/addfoneusuario/{pessoaid}")
+	public ModelAndView addfoneUsuario(Telefone telefone, @PathVariable("pessoaid") Long pessoaid) {
+		Usuario usuario = usuarioRepository.findById(pessoaid).get();
+		telefone.setUsuario(usuario);
+		
+		telefoneRepository.save(telefone);
+		
+		ModelAndView modelAndView = new ModelAndView("/CadastroTelefone");
+		modelAndView.addObject("usuarioEmEdicao", usuario);
 		return modelAndView;
 	}
 

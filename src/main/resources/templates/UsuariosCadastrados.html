@@ -43,6 +43,7 @@
 				<td th:text = "${usuario.cpf}"></td>
 				<td><a th:href="@{/editarusuario/{idusuario}(idusuario=${usuario.id})}">Editar</a></td>
 				<td><a th:href="@{/removerusuario/{idusuario}(idusuario=${usuario.id})}">Excluir</a></td>
+				<td><a th:href="@{/inserirtelefone/{idusuario}(idusuario=${usuario.id})}" >Inserir Telefone</a></td>
 			</tr>	
 		</table>
 	
